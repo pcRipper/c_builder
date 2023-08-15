@@ -4,11 +4,16 @@
 #include "libs\General\Headers\String.h"
 #include "libs\Labs\Headers\lab1.h"
 
-int main(int argc,char** argv){
+//compile command :
+// gcc -o main .\main.c .\libs\General\Source\String.c .\libs\Labs\Source\lab1.c -std=c99
 
-    String* res = toHex(2222);
+double mod(double l,double r){
+    int x = l / r;
+    return l - (r * x);
+}
+
+int main(int argc,char** argv){
     
-    printf("%s\n", string_get(res));
 
     return 0;
 }
