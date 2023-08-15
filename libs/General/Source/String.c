@@ -11,27 +11,29 @@ struct String {
     size_t allocated;
 };
 
-String* initString(){
-    String *str;
+String* string_init(){
+    String *str = (String*)malloc(sizeof(String));
     str->size = 0;
     str->allocated = SIZE_INCREMENTATION_CONSTANT;
     str->data = (char*)malloc(str->allocated * sizeof(char));
     return str;
 }
 
-void deleteString(String* restrict str){
+void string_delete(String* restrict str){
     free(str->data);
+    free(str);
 }
 
-void appendString(String* restrict str,const char c){
+String* string_append(String* restrict str,const char c){
     if(str->allocated == str->size){
         str->allocated += SIZE_INCREMENTATION_CONSTANT;
         str->data = (char*)realloc(str->data,str->allocated);
     }
     str->data[str->size++] = c;
+    return str;
 }
 
-void insertString(String* restrict str, const char* restrict data){
+String* string_insert(String* restrict str, const char* restrict data){
     const size_t len = strlen(data);
     if(str->allocated - str->size < len){
         str->allocated = str->size + len;
@@ -42,20 +44,37 @@ void insertString(String* restrict str, const char* restrict data){
     while(i < len){
         str->data[str->size++] = data[i++];
     }
+    return str;
 }
 
-char* getString(String* restrict str){
+String* string_popBack(String* restrict str){
+    if(str->size != 0)--str->size;
+    return str;
+}
+
+String* string_popFront(String* restrict str){
+    if(str->size != 0){
+        for(size_t i = 1;i < str->size;++i){
+            str->data[i - 1] = str->data[i];
+        }
+        --str->size;
+    }
+    return str;
+}
+
+char* string_get(String* restrict str){
     char* result = (char*)malloc((str->size + 1) * sizeof(char));
     memcpy(result,str->data,str->size*sizeof(char));
     result[str->size] = '\0';
     return result;
 }
 
-void reverse(String* restrict str){
+String* string_reverse(String* restrict str){
     int l = -1,r = str->size;
     while(++l < --r){
         char c = str->data[l];
         str->data[l] = str->data[r];
         str->data[r] = c;
     }
+    return str;
 }
