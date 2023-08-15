@@ -1,7 +1,4 @@
 #include "..\\Headers\\String.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #define SIZE_INCREMENTATION_CONSTANT 10
 
@@ -19,12 +16,12 @@ String* string_init(){
     return str;
 }
 
-void string_delete(String* restrict str){
+void string_delete(String* str){
     free(str->data);
     free(str);
 }
 
-String* string_append(String* restrict str,const char c){
+String* string_append(String* str,const char c){
     if(str->allocated == str->size){
         str->allocated += SIZE_INCREMENTATION_CONSTANT;
         str->data = (char*)realloc(str->data,str->allocated);
@@ -33,7 +30,7 @@ String* string_append(String* restrict str,const char c){
     return str;
 }
 
-String* string_insert(String* restrict str, const char* restrict data){
+String* string_insert(String* str, const char* data){
     const size_t len = strlen(data);
     if(str->allocated - str->size < len){
         str->allocated = str->size + len;
@@ -47,12 +44,12 @@ String* string_insert(String* restrict str, const char* restrict data){
     return str;
 }
 
-String* string_popBack(String* restrict str){
+String* string_popBack(String* str){
     if(str->size != 0)--str->size;
     return str;
 }
 
-String* string_popFront(String* restrict str){
+String* string_popFront(String* str){
     if(str->size != 0){
         for(size_t i = 1;i < str->size;++i){
             str->data[i - 1] = str->data[i];
@@ -62,14 +59,14 @@ String* string_popFront(String* restrict str){
     return str;
 }
 
-char* string_get(String* restrict str){
+char* string_get(String* str){
     char* result = (char*)malloc((str->size + 1) * sizeof(char));
     memcpy(result,str->data,str->size*sizeof(char));
     result[str->size] = '\0';
     return result;
 }
 
-String* string_reverse(String* restrict str){
+String* string_reverse(String* str){
     int l = -1,r = str->size;
     while(++l < --r){
         char c = str->data[l];

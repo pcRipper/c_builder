@@ -1,3 +1,8 @@
+#pragma once
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #ifndef STRING_H
 #define STRING_H
 
