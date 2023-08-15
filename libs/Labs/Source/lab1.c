@@ -1,4 +1,5 @@
 #include "..\Headers\lab1.h"
+#include "..\..\General\Headers\String.h"
 
 String* toHex(int num){
     static const char chars[] = "0123456789ABCDEF";
