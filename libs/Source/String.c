@@ -15,7 +15,7 @@ String* initString(){
     String *str;
     str->size = 0;
     str->allocated = SIZE_INCREMENTATION_CONSTANT;
-    str->data = (char*)malloc(SIZE_INCREMENTATION_CONSTANT * sizeof(char));
+    str->data = (char*)malloc(str->allocated * sizeof(char));
     return str;
 }
 
@@ -23,7 +23,7 @@ void deleteString(String* restrict str){
     free(str->data);
 }
 
-void appendString(String* restrict str,char c){
+void appendString(String* restrict str,const char c){
     if(str->allocated == str->size){
         str->allocated += SIZE_INCREMENTATION_CONSTANT;
         str->data = (char*)realloc(str->data,str->allocated);
@@ -52,5 +52,10 @@ char* getString(String* restrict str){
 }
 
 void reverse(String* restrict str){
-    
+    int l = -1,r = str->size;
+    while(++l < --r){
+        char c = str->data[l];
+        str->data[l] = str->data[r];
+        str->data[r] = c;
+    }
 }

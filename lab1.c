@@ -3,25 +3,23 @@
 #include <string.h>
 #include "libs\Headers\String.h"
 
-String* toHex(int num){
+void toHex(int num){
     static const char chars[] = "0123456789ABCDEF";
-    // String* result = initString();
+    String* result = initString();
     
     while(num > 0){
-        // appendString(result,chars[num & 0xF]);
-        printf("%c\n",chars[num & 0xF]);
+        appendString(result,chars[num & 0xF]);
         num = num >> 4;
     }
 
-    // reverse(result);
-    return initString();
+    reverse(result);
+    printf("%s",getString(result));
+    deleteString(result);
 }
 
 int main(int argc,char** argv){
 
-    int toTransfer = 212;
-
-    printf("%d -> %s",toTransfer,getString(toHex(toTransfer)));
+    toHex(212);
 
     return 0;
 }
