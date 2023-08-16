@@ -55,11 +55,10 @@ String* string_insertAt (String* str, size_t index, const char* data){
     }
     index = min(index,str->size);
     
-    int r = str->size + len - 1;
-    int l = r - len;
+    long long int r = str->size + len - 1;
+    long long int l = str->size - 1;
 
     while(index <= l && 0 <= l){
-        printf("%d , %d\n",l ,r);
         str->data[r--] = str->data[l--];
     }
 
