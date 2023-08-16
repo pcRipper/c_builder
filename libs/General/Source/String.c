@@ -8,11 +8,14 @@ struct String {
     size_t allocated;
 };
 
-String* string_init(){
+String* string_init(const char* data){
     String *str = (String*)malloc(sizeof(String));
-    str->size = 0;
-    str->allocated = SIZE_INCREMENTATION_CONSTANT;
+
+    str->size = data == NULL ? 0 : strlen(data);
+    str->allocated = str->size + SIZE_INCREMENTATION_CONSTANT;
     str->data = (char*)malloc(str->allocated * sizeof(char));
+
+    if(data != NULL)memcpy(str->data,data,str->size * sizeof(char));
     return str;
 }
 
@@ -41,6 +44,27 @@ String* string_insert(String* str, const char* data){
     while(i < len){
         str->data[str->size++] = data[i++];
     }
+    return str;
+}
+
+String* string_insertAt (String* str, size_t index, const char* data){
+    const size_t len = strlen(data);
+    if(str->allocated - str->size < len){
+        str->allocated = str->size + len;
+        str->data = (char*)realloc(str->data,str->allocated);
+    }
+    index = min(index,str->size);
+    
+    int r = str->size + len - 1;
+    int l = r - len;
+
+    while(index <= l && 0 <= l){
+        printf("%d , %d\n",l ,r);
+        str->data[r--] = str->data[l--];
+    }
+
+    memcpy(&str->data[index],data,len);
+    str->size += len;
     return str;
 }
 

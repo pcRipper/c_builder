@@ -14,6 +14,16 @@ double mod(double l,double r){
 
 int main(int argc,char** argv){
     
+    // String* res = floatConverter(212.34,16,4);
 
+    // printf("%s", string_get(res));
+    
+    String *res = string_init("Hello world");
+    
+    string_insertAt(res,9,"This is ");
+
+    printf("%s",string_get(res));
+    
+    string_delete(res);
     return 0;
 }
