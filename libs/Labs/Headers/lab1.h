@@ -1,5 +1,4 @@
 #include "..\..\General\Headers\String.h"
-// #include "..\..\General\Source\String.c"
 #include <math.h>
 
 #ifndef LAB1_H
