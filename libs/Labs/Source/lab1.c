@@ -1,5 +1,6 @@
 #include "..\Headers\lab1.h"
 
+
 String* decimalConverter(int num,char (*func)(int*)){
     String* result = string_init(NULL);
 
@@ -24,6 +25,18 @@ String* floatConverter(double num,size_t system,int precision){
     }
 
     return string_reverse(result);
+}
+
+double toDecimalConverter(String* str,size_t system){
+
+    size_t limit = 0;
+    while(limit < str->size){
+
+    }
+
+    size_t multiplier = pow(limit,system);
+
+    return 0;
 }
 
 char asHex(int* num){

@@ -7,6 +7,7 @@
 
 String* decimalConverter(int num,char (*func)(int*));
 String* floatConverter(double num,size_t system,int precision);
+double  toDecimalConverter(String* str,size_t system);
 
 char asHex(int* num);
 char asBinary(int *num);

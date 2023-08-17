@@ -7,19 +7,12 @@
 //compile command :
 // gcc -o main .\main.c .\libs\General\Source\String.c .\libs\Labs\Source\lab1.c -std=c99
 
-double mod(double l,double r){
-    int x = l / r;
-    return l - (r * x);
-}
 
 int main(int argc,char** argv){
     
-    String *res = string_init("Hello world");
     
-    string_insertAt(res,9,"This is ");
 
-    printf("%s",string_get(res));
-    
-    string_delete(res);
+
+
     return 0;
 }
