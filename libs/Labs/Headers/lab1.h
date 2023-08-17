@@ -1,4 +1,3 @@
-#pragma once
 #include "..\..\General\Headers\String.h"
 #include <math.h>
 

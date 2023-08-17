@@ -1,5 +1,5 @@
 #include "..\Headers\lab1.h"
-
+#include "..\..\General\Headers\String.h"
 
 String* decimalConverter(int num,char (*func)(int*)){
     String* result = string_init(NULL);
@@ -30,9 +30,9 @@ String* floatConverter(double num,size_t system,int precision){
 double toDecimalConverter(String* str,size_t system){
 
     size_t limit = 0;
-    while(limit < str->size){
+    // while(limit < str->size){
 
-    }
+    // }
 
     size_t multiplier = pow(limit,system);
 

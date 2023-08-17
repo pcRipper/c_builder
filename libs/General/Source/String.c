@@ -1,4 +1,4 @@
-#include "..\\Headers\\String.h"
+#include "..\Headers\String.h"
 
 #define SIZE_INCREMENTATION_CONSTANT 10
 
