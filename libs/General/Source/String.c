@@ -2,12 +2,6 @@
 
 #define SIZE_INCREMENTATION_CONSTANT 10
 
-struct String {
-    char* data;
-    size_t size;
-    size_t allocated;
-};
-
 String* string_init(const char* data){
     String *str = (String*)malloc(sizeof(String));
 

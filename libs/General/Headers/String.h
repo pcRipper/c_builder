@@ -15,7 +15,11 @@
     __typeof__ (b) _b = (b); \
     _a > _b ? _b : _a; })
 
-typedef struct String String;
+typedef struct {
+    char* data;
+    size_t size;
+    size_t allocated;
+} String;
 
 String*  string_init     (const char* data);
 void     string_delete   (String* str);
