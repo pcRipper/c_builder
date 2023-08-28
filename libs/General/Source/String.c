@@ -92,3 +92,15 @@ String* string_reverse(String* str){
     }
     return str;
 }
+
+String*  string_filter (String* str, bool(*predicate)(const char)){
+    String* result = string_init(NULL);
+
+    for(size_t i = 0;i < str->size; ++i){
+        if(predicate(str->data[i])){
+            string_append(result,str->data[i]);
+        }
+    }
+
+    return result;
+}

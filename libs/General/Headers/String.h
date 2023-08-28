@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #ifndef STRING_H
 #define STRING_H
@@ -30,5 +31,6 @@ String*  string_popBack  (String* str);
 String*  string_popFront (String* str);
 char*    string_get      (String* str);
 String*  string_reverse  (String* str);
+String*  string_filter   (String* str, bool(*predicate)(const char));
 
 #endif
