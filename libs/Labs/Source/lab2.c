@@ -1,10 +1,11 @@
 #include "..\Headers\lab2.h"
 
-double task1_1(){
+void task1_1(){
     double x, y;
     printf("Input x and y : ");
     scanf("%lf %lf",&x,&y);
-    return (sqrt(abs(x - 1)) - sqrt(abs(y)))/(1 + x*x/2 + y*y/4);
+    double result = (sqrt(abs(x - 1)) - sqrt(abs(y)))/(1 + x*x/2 + y*y/4);
+    printf("Answer = %lf\n",result);
 }
 
 void task2_1(){
