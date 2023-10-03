@@ -1,6 +1,7 @@
 #include "..\Headers\lab4.h"
 
 void task1(){
+    //test: y=Piecewise[{{x+2,x<0},{Power[x,3]+5,x>=Divide[π,2]},{sin\(40)x\(41)+0.5 ,0<=x<Divide[π,2]}}],x= -2
     static const double HALF_PI = MATH_PI / 2.0;
     double x;
     printf("Input X value: ");
@@ -21,6 +22,7 @@ void task1(){
 }
 
 void task2(){
+    //test: b = Divide[\(40)sqrt\(40)Power[x,4]-1\(41) + 3*x*y\(41),1 - cos\(40)x\(41)],x = 0,y = 3
     double x,y;
     printf("Input X and Y values: ");
     scanf("%lf%lf",&x,&y);

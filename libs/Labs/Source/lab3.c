@@ -15,6 +15,7 @@ void task1(){
 }
 
 void task2(){
+    //z\:=\:\frac{\left(c+29b\right)}{c+b},\:y=\frac{\left(abs\left(\log _{10}\left(x\right)\right)+5\right)}{x+4}\:,\:c\:=\:sin^2\left(a\cdot \left(2\cdot \:y^2+1\right)\right),\:x\:=0.2,\:a=2,\:b=12
     double x,a,b;
     printf("Input Y,A and B values : ");
     scanf("%lf%lf%lf",&x,&a,&b);
@@ -40,13 +41,14 @@ void taskI1(){
 
 void taskI2(){
     //variant #8
-
+    //check : y\:=\:\frac{\left(sqrt\left(e^{x-2}\:+\:3\right)\right)}{x},c=sqrt\left(5\cdot y\:+\:20\right),z=\frac{a^{0.25}+c}{c\:+\:b},x=2,a=2,b=2
     double x,a,b;
-    printf("Input Y,A and B values : ");
+    printf("Input X,A and B values : ");
     scanf("%lf%lf%lf",&x,&a,&b);
 
     double y = (sqrt(pow(E,x-2) + 3))/x;
-    double z = (pow(a,0.25) + sqrt(5*y + 20))/(sqrt(5*y + 20) + b);
+    double c = sqrt(5*y + 20);
+    double z = (pow(a,0.25) + c)/(c + b);
 
     printf("Y = %lf, Z = %lf\n",y,z);
 

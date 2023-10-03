@@ -13,6 +13,19 @@ String* string_init(const char* data){
     return str;
 }
 
+String*  string_copy(String* str){
+    return string_init(str->data);
+}
+
+String* string_reserve(String* str, uint64_t to_size){
+    if(to_size <= str->allocated)return str;
+
+    str->allocated = to_size;
+    str->data = (char*)realloc(str->data,str->allocated);
+
+    return str;
+}
+
 void string_delete(String* str){
     free(str->data);
     free(str);
@@ -27,22 +40,34 @@ String* string_append(String* str,const char c){
     return str;
 }
 
+String* string_prepend(String* str, const char c){
+    if(str->allocated == str->size){
+        str->allocated += SIZE_INCREMENTATION_CONSTANT;
+        str->data = (char*)realloc(str->data,str->allocated);
+    }
+    for(uint64_t i = str->size++;0 < i;--i){
+        str->data[i] = str->data[i-1];
+    }
+    str->data[0] = c;
+    return str;
+}
+
 String* string_insert(String* str, const char* data){
-    const size_t len = strlen(data);
+    const uint64_t len = strlen(data);
     if(str->allocated - str->size < len){
         str->allocated = str->size + len;
         str->data = (char*)realloc(str->data,str->allocated);
     }
 
-    size_t i = 0;
+    uint64_t i = 0;
     while(i < len){
         str->data[str->size++] = data[i++];
     }
     return str;
 }
 
-String* string_insertAt (String* str, size_t index, const char* data){
-    const size_t len = strlen(data);
+String* string_insertAt(String* str, uint64_t index, const char* data){
+    const uint64_t len = strlen(data);
     if(str->allocated - str->size < len){
         str->allocated = str->size + len;
         str->data = (char*)realloc(str->data,str->allocated);
@@ -68,7 +93,7 @@ String* string_popBack(String* str){
 
 String* string_popFront(String* str){
     if(str->size != 0){
-        for(size_t i = 1;i < str->size;++i){
+        for(uint64_t i = 1;i < str->size;++i){
             str->data[i - 1] = str->data[i];
         }
         --str->size;
@@ -93,10 +118,10 @@ String* string_reverse(String* str){
     return str;
 }
 
-String*  string_filter (String* str, bool(*predicate)(const char)){
+String* string_filter (String* str, bool(*predicate)(const char)){
     String* result = string_init(NULL);
 
-    for(size_t i = 0;i < str->size; ++i){
+    for(uint64_t i = 0;i < str->size; ++i){
         if(predicate(str->data[i])){
             string_append(result,str->data[i]);
         }
