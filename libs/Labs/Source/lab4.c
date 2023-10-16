@@ -51,6 +51,7 @@ void taskI8_1(){
 }
 
 void taskI8_2(){
+    //test: b = sqrt(1 - Divide[\(40)2xz - y\(41),\(40)4Power[x,2]-1\(41)]) - 10000,x = 12,y=12,z=12
     double x,y,z;
     printf("Input X,Y and Z values: ");
     scanf("%lf%lf%lf",&x,&y,&z);

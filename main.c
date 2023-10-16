@@ -6,8 +6,9 @@
 // #include "libs\Labs\Headers\lab1.h"
 // #include "libs\Labs\Headers\lab3.h"
 // #include "libs\Labs\Headers\lab4.h"
-#include "libs\General\Headers\BigNum.h"
-#include "libs\Labs\Headers\module1.h"
+#include "libs\Labs\Headers\lab6.h"
+// #include "libs\General\Headers\BigNum.h"
+// #include "libs\Labs\Headers\module1.h"
 
 //compile commands :
 //  with general libs : 
@@ -15,10 +16,14 @@
 //  for labs :
 //      gcc -o main .\main.c .\libs\General\Source\String.c .\libs\Labs\Source\lab1.c
 //      gcc -o main .\main.c .\libs\General\Source\String.c .\libs\Labs\Source\lab2.c 
+//      gcc -o main .\main.c .\libs\General\Source\String.c .\libs\Labs\Source\lab5.c 
+//      gcc -o main .\main.c .\libs\General\Source\String.c .\libs\General\Source\BigNum.c .\libs\Labs\Source\module1.c
 
 int main(int argc,char** argv){
 
-    test_module1();
-
+    while(true){
+        taskI19_6();
+    }
+    
     return 0;
 }

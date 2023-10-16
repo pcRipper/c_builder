@@ -52,5 +52,6 @@ void test_module1(){
         BigNum* decimal = string_init("99123877183913457918239193745189");
         BigNum* binary = decimalToBinary(decimal);
         printf("%s\n",string_get(binary));
+        printf("%s\n",string_get(binaryToDecimal(binary)));
     }
 }
