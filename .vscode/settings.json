@@ -59,6 +59,22 @@
   "files.associations": {
     "string.h": "c",
     "lab4.h": "c",
-    "cmath": "c"
+    "cmath": "c",
+    "ranges": "c",
+    "array": "c",
+    "deque": "c",
+    "format": "c",
+    "initializer_list": "c",
+    "list": "c",
+    "queue": "c",
+    "regex": "c",
+    "span": "c",
+    "stack": "c",
+    "type_traits": "c",
+    "vector": "c",
+    "xhash": "c",
+    "xstring": "c",
+    "xtree": "c",
+    "xutility": "c"
   }
 }

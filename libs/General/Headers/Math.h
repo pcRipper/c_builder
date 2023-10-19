@@ -14,4 +14,11 @@
     __typeof__ (b) _b = (b); \
     _a > _b ? _b : _a; })
 
+
+#define equal_triple(a,b,c) \
+({  __typeof__ (a) _a = (a); \
+    __typeof__ (b) _b = (b); \
+    __typeof__ (c) _c = (c); \
+    ((_a == _b) && (_a == _c)) ? true : false; \
+})
 #endif

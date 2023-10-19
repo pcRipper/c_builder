@@ -6,12 +6,16 @@ void task1(){
     printf("Input X value: ");
     scanf("%lf",&x);
 
+    if(x <= 0 || x > 5)return;
+
     double sum = 0;
+    double xs = x;
     for(int i = 1;i <= N;++i){
-        sum += pow(x,i);
+        sum += xs;
+        xs *= x;
     }
 
-    printf("Sum = %lf",sum);
+    printf("Sum = %lf\n",sum);
 }
 
 void task2(){
@@ -32,7 +36,25 @@ void task2(){
 }
 
 void task3(){
+    static const int limit = 30;
+    static const double diff = 0.0001;
 
+    double x;
+    printf("Input value of X : ");
+    scanf("%lf",&x);
+    
+    int iterations = 0;
+    double ex = 1;
+    double xs = 1;
+    double exP = exp(x);
+
+    while(iterations <= limit){
+        xs = xs*x/++iterations;
+        ex += xs;
+        if(fabs(exP - ex) < diff)break;
+    }
+
+    printf("e^%lf = %lf | e^%lf = %lf \niterations = %d\n",x,ex,x,exP,iterations);
 }
 
 void task4(){

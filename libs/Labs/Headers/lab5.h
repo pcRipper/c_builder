@@ -13,4 +13,6 @@ void task4();
 
 void taskI8_1();
 
+void lab5_test();
+
 #endif
