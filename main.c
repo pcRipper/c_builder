@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libs\General\Headers\String.h"
+// #include "libs\General\Headers\String.h"
 #include "libs\General\Headers\Functions.h"
 // #include "libs\Labs\Headers\lab5.h"
 #include "libs\Labs\Headers\lab6.h"

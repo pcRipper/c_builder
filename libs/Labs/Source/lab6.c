@@ -15,8 +15,8 @@ void taskI19_2(){
     printf("Input X value: ");
     scanf("%lf",&x);
 
-    if(x == 0){
-        printf("Values are invalid for this formula : x cannot be 0\n");
+    if(x <= 0){
+        printf("Values are invalid for this formula : x cannot be <= 0\n");
         return;
     }
     
@@ -27,7 +27,9 @@ void taskI19_2(){
         return;
     }
 
-    double F = (sqrt(1 + sqrt(fabs(x))) + log10(x*x*x))/divisor + 10000*pow(cos(x),2);
+    double F = (sqrt(1 + sqrt(fabs(x))) + log(x*x*x))/divisor + 10000*pow(cos(x),2);
+
+    printf("F(x) = %lf\n",F);
 }
 
 void taskI19_3(){
@@ -72,11 +74,7 @@ void taskI19_3(){
     //checking duos
     int any_duos = -1;
     for(int i = 0;i < 3;++i){
-        if(equal_triple(
-            aval[duos[i][0]],
-            aval[duos[i][1]],
-            aval[duos[i][2]]
-        )){
+        if(aval[duos[i][0]] == aval[duos[i][1]] && aval[duos[i][2]] == aval[duos[i][3]]){
             any_duos = i;
             break;
         }
@@ -123,13 +121,14 @@ void taskI19_3(){
 void taskI19_4(){
     printf("two-digit numbers,whose in power of 3 have 3 same last digits: ");
     for(int i = 10;i < 100;++i){
-        int square = i * i;
-        if(square%10 == (square/10)%10 && square%10 == (square/100)%10){
+        int square = (i * i)%1000;
+        if(square%10 == (square/10)%10 && square%10 == square/100){
             printf("%d,",i);
         }
     }
     printf("\b \n");
 }
+
 void taskI19_5(){
     int x, y;
     printf("Input interval limits: ");

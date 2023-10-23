@@ -7,13 +7,6 @@
 #ifndef LAB6_H
 #define LAB6_H
 
-#define equal_triple(a,b,c) \
-({  __typeof__ (a) _a = (a); \
-    __typeof__ (b) _b = (b); \
-    __typeof__ (c) _c = (c); \
-    ((_a == _b) && (_a == _c)) ? true : false; \
-})
-
 bool isOctal(double N,int precision);
 
 void taskI19_1();
