@@ -8,8 +8,6 @@
 #ifndef STRING_H
 #define STRING_H
 
-
-
 typedef struct {
     char* data;
     uint64_t size;
