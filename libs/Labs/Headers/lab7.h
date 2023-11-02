@@ -3,10 +3,14 @@
 #ifndef LAB7_H
 #define LAB7_H
 
-DEFINE_VECTOR_TYPE(IntVector,int)
+void intOutput(int x);
 
-void show_vector(IntVector* vector);
+bool predicate_task1(int x,size_t index);
+void task1();
+void task2();
+void task3();
 
+void taskI8_1();
 void taskI8_2();
 
 #endif

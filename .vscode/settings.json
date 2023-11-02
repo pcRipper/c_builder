@@ -76,6 +76,9 @@
     "xstring": "c",
     "xtree": "c",
     "xutility": "c",
-    "lab6.h": "c"
+    "lab6.h": "c",
+    "lab7.h": "c",
+    "math.h": "c",
+    "vector.h": "c"
   }
 }
