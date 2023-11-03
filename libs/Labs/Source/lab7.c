@@ -1,33 +1,38 @@
 #include "..\Headers\lab7.h"
 
 DEFINE_VECTOR_TYPE(VectorInt,int)
+VectorInput(VectorInt)
+
+#pragma region Functions
 
 void intOutput(int x){
     printf("%d",x);
 }
-
 bool predicate_task1(int x,size_t index){
     return x > 0;
 }
+bool predicate_task2(int l,size_t l_index,int r,size_t r_index) {
+    if(l == r)return l_index < r_index;
+    return l > r;
+}
+bool sort_predicate(int l,size_t l_index,int r,size_t r_index){
+    return l < r;
+}
+
+int functor_taskI1(int x,size_t index){
+    return x < 0 && x%2 == 1 ? 1 : x;
+}
+bool predicate_taskI2(int l,size_t l_index,int r,size_t r_index) {
+    if(l <= 0 && r > 0)return true;
+    if(r <= 0 || r%2 == 1)return false;
+    if(l == r)return l_index < r_index;
+    return l > r;
+}
+
+#pragma endregion
 
 void task1() {
-    size_t size = 0;
-    while(size == 0){
-        printf("Input amount of numbers: ");
-        scanf("%u",&size);
-    }
-        
-    VectorInt* vector = VectorInt_init();
-    VectorInt_reserve(vector,size);
-
-    printf("Input your numbers: ");
-
-    int num;    
-    for(size_t i = 0;i < size;++i){    
-        scanf("%d",&num);
-        VectorInt_push(vector,num);
-    }
-
+    VectorInt* vector = inputVector();
     VectorInt* filtered = VectorInt_filter(vector,predicate_task1);
 
     printf("Result -> ");
@@ -38,16 +43,50 @@ void task1() {
 }
 
 void task2() {
+    VectorInt* vector = inputVector();
+    int index = VectorInt_find(vector,predicate_task2);
 
+    printf("Smallest element at index -> %d\n",index);
+    VectorInt_showVector(vector,intOutput);
+
+    if(index != 2 && vector->size > 2){
+        int temp = vector->data[index];
+        vector->data[index] = vector->data[2];
+        vector->data[2] = temp;
+    }
+
+    VectorInt_showVector(vector,intOutput);
+
+    VectorInt_free(vector);
 }
 
 void task3() {
+    VectorInt* vector = inputVector();
 
+    VectorInt_showVector(vector,intOutput);    
+    VectorInt_bubbleSort(vector,sort_predicate);
+    VectorInt_showVector(vector,intOutput);
+
+    VectorInt_free(vector);
 }
 
 void taskI8_1() {
+    VectorInt* vector = inputVector();
 
+    VectorInt_showVector(vector,intOutput);
+    VectorInt_map(vector,functor_taskI1);
+    VectorInt_showVector(vector,intOutput);
+    
+    VectorInt_free(vector);
 }
-void taskI8_2() {
 
+void taskI8_2() {
+    VectorInt* vector = inputVector();
+
+    VectorInt_showVector(vector,intOutput);
+    int index = VectorInt_find(vector,predicate_taskI2);
+
+    printf("Last Min even element at index -> %d",index);
+
+    VectorInt_free(vector);
 }

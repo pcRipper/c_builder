@@ -12,7 +12,7 @@
 
 int main(int argc,char** argv){ 
 
-    task1();
+    taskI8_2();
 
     return 0;
 }

@@ -15,6 +15,7 @@ typedef struct { \
 } VectorType; \
  \
  typedef ElementType (*MapFunc)(ElementType, size_t); \
+ typedef ElementType (*FillFunc)(size_t); \
  typedef bool        (*Predicate)(ElementType, size_t); \
  typedef bool        (*PairPredicate)(ElementType, size_t, ElementType, size_t); \
  typedef void        (*Output)(ElementType); \
@@ -44,6 +45,26 @@ VectorType* VectorType##_initData(const ElementType* data,const size_t size) { \
     memcpy(&vector->data[0],&data[0],size * sizeof(ElementType)); \
     vector->size = size; \
     return vector; \
+} \
+ \
+void VectorType##_fill(VectorType *vector,const ElementType value) { \
+    if(vector == NULL)return; \
+    for(size_t i = 0;i < vector->size;++i) { \
+        vector->data[i] = value; \
+    } \
+} \
+ \
+void VectorType##_fillWith(VectorType* vector,FillFunc functor) { \
+    if(vector == NULL)return; \
+    for(size_t i = 0;i < vector->size;++i) { \
+        vector->data[i] = functor(i); \
+    } \
+} \
+ \
+void VectorType##_resize(VectorType *vector,size_t new_size) { \
+    if(vector == NULL)return; \
+    if(vector->capacity < new_size)VectorType##_reserve(vector,new_size); \
+    vector->size = new_size; \
 } \
  \
 void VectorType##_push(VectorType *vector, ElementType value) { \
@@ -86,43 +107,26 @@ VectorType* VectorType##_filter(VectorType* vector,Predicate predicate) { \
     return result; \
 } \
  \
-VectorType* VectorType##_findAll(VectorType* vector,Predicate predicate) { \
-    VectorType* result = VectorType##_init(); \
-    VectorType##_reserve(result,vector->size); \
-    for(size_t i = 0;i < vector->size;++i){ \
+int VectorType##_lastOf(VectorType* vector, Predicate predicate) { \
+    if(vector == NULL)return -1; \
+    int result = -1; \
+    for(int i = 0;i < vector->size;++i) { \
         if(predicate(vector->data[i],i)){ \
-            VectorType##_push(result,vector->data[i]); \
+            result = i; \
         } \
     } \
     return result; \
 } \
  \
-int VectorType##_lastOf(VectorType* vector, Predicate predicate) { \
-    for(int i = vector->size - 1;i > 0;--i) { \
-        if(predicate(vector->data[i],i)){ \
-            return i; \
-        } \
-    } \
-    return -1; \
-} \
- \
-int VectorType##_firstOf(VectorType* vector, Predicate predicate) { \
-    for(int i = 0;i < vector->size;++i) { \
-        if(predicate(vector->data[i],i)){ \
-            return i; \
-        } \
-    } \
-    return -1; \
-} \
- \
 int VectorType##_find(VectorType* vector, PairPredicate predicate) { \
+    if(vector == NULL)return -1; \
     int result = 0; \
     for(int i = 1;i < vector->size;++i) { \
         if(predicate(vector->data[result],result,vector->data[i],i)) { \
             result = i; \
         } \
     } \
-    return -1; \
+    return result; \
 } \
  \
 void VectorType##_bubbleSort(VectorType* vector,PairPredicate predicate) { \
