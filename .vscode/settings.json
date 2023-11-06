@@ -79,6 +79,8 @@
     "lab6.h": "c",
     "lab7.h": "c",
     "math.h": "c",
-    "vector.h": "c"
+    "vector.h": "c",
+    "vectorfunctions.h": "c",
+    "stdlib.h": "c"
   }
 }
