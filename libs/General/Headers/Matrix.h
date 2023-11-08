@@ -5,33 +5,41 @@
 
 #define DEFINE_MATRIX_TYPE(MatrixType,ElementType) \
  \
-DEFINE_VECTOR_TYPE(MatrixRow, ElementType) \
-DEFINE_VECTOR_TYPE(MatrixType, MatrixRow) \
+DEFINE_VECTOR_TYPE(MatrixType##_MatrixRow, ElementType) \
+DEFINE_VECTOR_TYPE(MatrixType, MatrixType##_MatrixRow) \
  \
-MatrixType* MatrixType##_initMatrix(const size_t rows,const size_t columns) { \
+static MatrixType* MatrixType##_initMatrix(const size_t rows,const size_t columns) { \
     MatrixType* result = MatrixType##_init(rows); \
     for(size_t r = 0;r < rows;++r) { \
-        result->data[r] = *MatrixRow##_init(columns); \
+        result->data[r] = *MatrixType##_MatrixRow##_init(columns); \
     } \
     return result; \
 } \
- \
-void MatrixType##_freeMatrix(MatrixType* matrix) { \
+static void MatrixType##_freeMatrix(MatrixType* matrix) { \
     if(matrix == NULL)return; \
     for(size_t i = 0;i < matrix->size;++i) { \
-        MatrixRow_free(&matrix->data[i]); \
+        MatrixType##_MatrixRow_free(&matrix->data[i]); \
     } \
 \
 } \
-void MatrixType##_showMatrix(MatrixType* matrix, MatrixRow##_Output output) { \
+static void MatrixType##_showMatrix(MatrixType* matrix, MatrixType##_MatrixRow##_Output output) { \
     if(matrix == NULL)return; \
     if(matrix->size == 0) { \
         printf("matrix is empty\n"); \
         return; \
     } \
     for(size_t r = 0;r < matrix->size;++r) { \
-        MatrixRow##_showVector(&matrix->data[r],output); \
+        MatrixType##_MatrixRow##_showVector(&matrix->data[r],output); \
     } \
+} \
+static void MatrixType##_fillMatrix(MatrixType* matrix,const ElementType value) { \
+    if(matrix == NULL)return; \
+    const size_t COLUMNS = matrix->data[0].size; \
+    for(size_t r = 0;r < matrix->size;++r) { \
+        for(size_t c = 0;c < COLUMNS;++c){ \
+            matrix->data[r].data[c] = value; \
+        } \
+    }\
 } \
 
 #endif

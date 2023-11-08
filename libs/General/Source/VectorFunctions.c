@@ -22,3 +22,8 @@ int intInput(size_t index){
     scanf("%d",&result);
     return result;
 }
+
+//Equal predicates
+bool intEqual(int l,int r){
+    return l == r;
+}

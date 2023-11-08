@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef VECTOR_H
-#define VECTOR_H
-
+#ifndef DEFINE_VECTOR_TYPE
 #define DEFINE_VECTOR_TYPE(VectorType, ElementType) \
 typedef struct { \
     ElementType *data; \
@@ -19,8 +17,9 @@ typedef struct { \
  typedef bool        (*VectorType##_Predicate)(ElementType, size_t); \
  typedef bool        (*VectorType##_PairPredicate)(ElementType, size_t, ElementType, size_t); \
  typedef void        (*VectorType##_Output)(ElementType, size_t); \
+ typedef bool        (*VectorType##_Equals)(ElementType, ElementType); \
  \
-void VectorType##_reserve(VectorType *vector,const size_t new_capacity) { \
+static void VectorType##_reserve(VectorType *vector,const size_t new_capacity) { \
     if(vector->capacity > new_capacity)return; \
     ElementType *new_data = (ElementType *)realloc(vector->data, new_capacity * sizeof(ElementType)); \
     if (new_data == NULL) { \
@@ -31,7 +30,7 @@ void VectorType##_reserve(VectorType *vector,const size_t new_capacity) { \
     vector->capacity = new_capacity; \
 } \
  \
-VectorType* VectorType##_init(const size_t size) { \
+static VectorType* VectorType##_init(const size_t size) { \
     VectorType *vector = (VectorType*)malloc(sizeof(VectorType)); \
     vector->data = NULL; \
     vector->size = size; \
@@ -42,7 +41,7 @@ VectorType* VectorType##_init(const size_t size) { \
     return vector; \
 } \
  \
-VectorType* VectorType##_initData(const ElementType* data,const size_t size) { \
+static VectorType* VectorType##_initData(const ElementType* data,const size_t size) { \
     VectorType *vector = VectorType##_init(size); \
     VectorType##_reserve(vector,size); \
     memcpy(&vector->data[0],&data[0],size * sizeof(ElementType)); \
@@ -50,38 +49,42 @@ VectorType* VectorType##_initData(const ElementType* data,const size_t size) { \
     return vector; \
 } \
  \
-void VectorType##_fill(VectorType *vector, const ElementType value) { \
+static VectorType* VectorType##_initCopy(const VectorType* vector) { \
+    return VectorType##_initData(&vector->data[0],vector->size); \
+} \
+ \
+static void VectorType##_fill(VectorType *vector, const ElementType value) { \
     if(vector == NULL)return; \
     for(size_t i = 0;i < vector->size;++i) { \
         vector->data[i] = value; \
     } \
 } \
  \
-void VectorType##_fillWith(VectorType* vector,VectorType##_FillFunc functor) { \
+static void VectorType##_fillWith(VectorType* vector,VectorType##_FillFunc functor) { \
     if(vector == NULL)return; \
     for(size_t i = 0;i < vector->size;++i) { \
         vector->data[i] = functor(i); \
     } \
 } \
  \
-void VectorType##_resize(VectorType *vector,size_t new_size) { \
+static void VectorType##_resize(VectorType *vector,size_t new_size) { \
     if(vector == NULL)return; \
     if(vector->capacity < new_size)VectorType##_reserve(vector,new_size); \
     vector->size = new_size; \
 } \
  \
-void VectorType##_push(VectorType *vector, ElementType value) { \
+static void VectorType##_push(VectorType *vector, ElementType value) { \
     if (vector->size == vector->capacity) { \
         VectorType##_reserve(vector,vector->capacity == 0 ? 1 : vector->capacity * 2); \
     } \
     vector->data[vector->size++] = value; \
 } \
  \
-void VectorType##_pop(VectorType *vector) { \
+static void VectorType##_pop(VectorType *vector) { \
     vector->size = max(vector->size-1,0); \
 } \
  \
-VectorType* VectorType##_concat(VectorType * l,VectorType *r) { \
+static VectorType* VectorType##_concat(VectorType * l,VectorType *r) { \
     if(l->size == 0)return r; \
     if(r->size == 0)return l; \
     VectorType *result = VectorType##_init(l->size + r->size); \
@@ -90,14 +93,14 @@ VectorType* VectorType##_concat(VectorType * l,VectorType *r) { \
     return result; \
 } \
  \
-void VectorType##_map(VectorType* vector,VectorType##_MapFunc functor) { \
+static void VectorType##_map(VectorType* vector,VectorType##_MapFunc functor) { \
     if(vector == NULL)return; \
     for(size_t i = 0;i < vector->size;++i){ \
         vector->data[i] = functor(vector->data[i], i); \
     } \
 } \
  \
-VectorType* VectorType##_filter(VectorType* vector,VectorType##_Predicate predicate) { \
+static VectorType* VectorType##_filter(VectorType* vector,VectorType##_Predicate predicate) { \
     VectorType* result = VectorType##_init(0); \
     if(vector == NULL)return result; \
     VectorType##_reserve(result,vector->size); \
@@ -109,7 +112,7 @@ VectorType* VectorType##_filter(VectorType* vector,VectorType##_Predicate predic
     return result; \
 } \
  \
-int VectorType##_lastOf(VectorType* vector, VectorType##_Predicate predicate) { \
+static int VectorType##_lastOf(VectorType* vector, VectorType##_Predicate predicate) { \
     if(vector == NULL)return -1; \
     int result = -1; \
     for(int i = 0;i < vector->size;++i) { \
@@ -120,7 +123,7 @@ int VectorType##_lastOf(VectorType* vector, VectorType##_Predicate predicate) { 
     return result; \
 } \
  \
-int VectorType##_find(VectorType* vector, VectorType##_PairPredicate predicate) { \
+static int VectorType##_find(VectorType* vector, VectorType##_PairPredicate predicate) { \
     if(vector == NULL)return -1; \
     int result = 0; \
     for(size_t i = 1;i < vector->size;++i) { \
@@ -131,7 +134,27 @@ int VectorType##_find(VectorType* vector, VectorType##_PairPredicate predicate) 
     return result; \
 } \
  \
-void VectorType##_bubbleSort(VectorType* vector,VectorType##_PairPredicate predicate) { \
+static int VectorType##_indexOf(VectorType* vector,const ElementType x, VectorType##_Equals predicate) { \
+    if(vector == NULL)return -1; \
+    for(size_t i = 0;i < vector->size;++i) { \
+        if(predicate(vector->data[i],x)) { \
+            return i; \
+        } \
+    } \
+    return -1; \
+} \
+ \
+static void VectorType##_popAt(VectorType* vector,size_t index) { \
+    if(vector == NULL)return; \
+    if(vector->size <= index)return; \
+    while(index < vector->size - 1) { \
+        vector->data[index] = vector->data[index+1]; \
+    } \
+    --vector->size; \
+ \
+} \
+ \
+static void VectorType##_bubbleSort(VectorType* vector,VectorType##_PairPredicate predicate) { \
     if(vector == NULL)return; \
     for(size_t i = 0;i < vector->size;++i) { \
         for(size_t j = 1;j < vector->size;++j) { \
@@ -144,7 +167,7 @@ void VectorType##_bubbleSort(VectorType* vector,VectorType##_PairPredicate predi
     } \
 } \
  \
-void VectorType##_showVector(VectorType* vector,VectorType##_Output output) { \
+static void VectorType##_showVector(VectorType* vector,VectorType##_Output output) { \
     if(vector == NULL)return; \
     if(vector->size == 0) { \
         printf("Vector is empty!"); \
@@ -159,7 +182,7 @@ void VectorType##_showVector(VectorType* vector,VectorType##_Output output) { \
     printf("\b\b};\n"); \
 } \
  \
-VectorType* inputVector(VectorType##_FillFunc functor) { \
+static VectorType* VectorType##_inputVector(VectorType##_FillFunc functor) { \
     size_t size = 0; \
     while(size == 0) { \
         printf("Input amount of elements: "); \
@@ -176,7 +199,7 @@ VectorType* inputVector(VectorType##_FillFunc functor) { \
     return vector; \
 } \
  \
-void VectorType##_free(VectorType *vector) { \
+static void VectorType##_free(VectorType *vector) { \
     free(vector->data); \
     vector->data = NULL; \
     vector->size = 0; \

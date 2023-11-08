@@ -81,6 +81,7 @@
     "math.h": "c",
     "vector.h": "c",
     "vectorfunctions.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "lab8_1.h": "c"
   }
 }
