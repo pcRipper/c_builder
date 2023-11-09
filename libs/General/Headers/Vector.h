@@ -154,6 +154,17 @@ static void VectorType##_popAt(VectorType* vector,size_t index) { \
  \
 } \
  \
+static bool* VectorType##_compare(VectorType* l,VectorType* r,VectorType##_Equals predicate){ \
+    bool* result = (bool*)malloc(max(l->size,r->size)); \
+    memset(&result[0], 0,max(l->size,r->size)); \
+    const size_t SIZE = min(l->size,r->size); \
+    for(size_t i = 0;i < SIZE;++i){ \
+        result[i] = predicate(l->data[i],r->data[i]); \
+    } \
+    return result; \
+ \
+} \
+ \
 static void VectorType##_bubbleSort(VectorType* vector,VectorType##_PairPredicate predicate) { \
     if(vector == NULL)return; \
     for(size_t i = 0;i < vector->size;++i) { \
