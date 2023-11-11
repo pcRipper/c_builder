@@ -19,6 +19,9 @@ bool in_range(size_t l,size_t r, size_t x);
 MatrixInt* spiralOrder(size_t n,size_t m);
 
 //task3
+int generateFill(size_t index);
+Matrix3D* generate3D(size_t z,size_t y,size_t x);
+
 //returns an array with such structure :
 //count of years * 2 = pairs of min and max temp of the year
 //last two elements  = min and max for the whole period

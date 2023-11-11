@@ -9,7 +9,7 @@ int randomFill(size_t index){
 
 //Output functions
 void intOutput(int x,size_t index){
-    printf("%d",x);
+    printf("\t%d",x);
 }
 
 void charOutput(char x,size_t index){

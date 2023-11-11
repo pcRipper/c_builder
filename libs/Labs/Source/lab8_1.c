@@ -53,6 +53,26 @@ MatrixInt* spiralOrder(size_t n,size_t m) {
     return result;
 }
 
+//task3
+int generateFill(size_t index){
+    static const int FROM = -500;
+    static const int TO = 500;
+    return rand() % (TO - FROM) + FROM;
+}
+
+Matrix3D* generate3D(size_t z,size_t y,size_t x){
+    Matrix3D* result = Matrix3D_initMatrix(z,y);
+    
+    for(size_t zi = 0;zi < z;++zi){
+        for(size_t yi = 0;yi < y;++yi){
+            result->data[zi].data[yi] = *VectorInt_init(x);
+            VectorInt_fillWith(&result->data[zi].data[yi],generateFill);
+        }
+    }
+
+    return result;
+}
+
 VectorInt* statistic(Matrix3D* data){
     static const int months[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 

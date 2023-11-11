@@ -54,7 +54,6 @@ void taskI19_2() {
     static const size_t SIZE = 70;
 
     VectorInt* vector = VectorInt_init(SIZE);
-    VectorInt_resize(vector,SIZE);
     VectorInt_fillWith(vector,randomFillNegatives);
 
     VectorInt_showVector(vector,intOutput);
@@ -80,7 +79,7 @@ void taskI19_3() {
     for(size_t r = 0;r < ROWS;++r){
         matrix->data[r] = *VectorInt_init(COLUMNS);
         for(size_t c = 0;c < COLUMNS;++c){
-            matrix->data[r].data[c] = (r + c)&1 ? 0 : 1; 
+            matrix->data[r].data[c] = 1 ^ (r + c) & 1; 
         }
         VectorInt_showVector(&matrix->data[r],intOutput);
     }
@@ -141,9 +140,9 @@ void taskI19_5() {
 
     //output whole book
     for(size_t s = 0;s < SHEETS; ++s){
-        printf("Page #%d\n",s+1);
+        // printf("Page #%d\n",s+1);
         for(size_t r = 0;r < ROWS;++r){
-            VectorChar_showVector(&book->data[s].data[r],charOutput);
+            // VectorChar_showVector(&book->data[s].data[r],charOutput);
         }
     }
 

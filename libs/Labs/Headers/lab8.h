@@ -1,4 +1,5 @@
 #include "..\..\General\Headers\Vector.h"
+#include "..\..\General\Headers\Matrix.h"
 #include "..\..\General\Headers\VectorFunctions.h"
 
 #ifndef LAB8_H
