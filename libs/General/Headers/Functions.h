@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
@@ -13,5 +15,7 @@
     __typeof__ (c) _c = (c); \
     ((_a == _b) && (_a == _c)) ? true : false; \
 })
+
+void cleanSTDIN();
 
 #endif

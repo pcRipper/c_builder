@@ -4,10 +4,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include <conio.h>
-// #include "libs\Labs\Headers\lab8.h"
-#include "libs\Labs\Headers\module2.h"
-// #include "libs\Labs\Headers\lab8_1.h"
-// #include "libs\Labs\Headers\module2.h"
+#include "libs\Labs\Headers\ProductionArea\Employee.h"
+#include "libs\Labs\Headers\ProductionArea\ProductionArea.h"
 
 //compile commands :
 //  with general libs : 
@@ -21,7 +19,15 @@
 int main(int argc,char** argv){ 
     srand(time(NULL));
 
-    task();
+    ProductionArea* area1 = ProductionArea_init();
+
+    VectorEmployee_push(area1->employees,*inputEmployee(0));
+    VectorEmployee_push(area1->employees,*inputEmployee(0));
+
+    ProductionArea_showInfo(area1);
+
+    ProductionArea_free(area1);
+    printf("\nStatus: OK;\n");
 
     return 0;
 }
