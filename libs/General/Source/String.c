@@ -13,6 +13,15 @@ String* string_init(const char* data){
     return str;
 }
 
+String* string_init_input(size_t maxSize){
+    String* result = string_init(NULL);
+    string_reserve(result, maxSize);
+
+    result->size = getline(&result->data, &maxSize, stdin) - 1;
+
+    return result;
+}
+
 String*  string_copy(String* str){
     return string_init(str->data);
 }

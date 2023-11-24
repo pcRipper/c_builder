@@ -8,14 +8,13 @@ Employee* Employee_init(){
 
 Employee* inputEmployee(size_t index){
     Employee* result = Employee_init();
-    string_reserve(result->name,50);
-
+    
     printf("Age = ");
     scanf("%u",&result->age);
 
     cleanSTDIN();
     printf("Name = ");
-    result->name->size = getline(&result->name->data,&result->name->size,stdin) - 1;
+    result->name = string_init_input(50);
 
     printf("Experience(in months) = ");
     scanf("%u",&result->experience);

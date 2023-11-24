@@ -13,6 +13,9 @@ enum ProductionType{
     GLASS
 };
 
+char* getProductionName(enum ProductionType type);
+
+
 typedef struct {
     //unqiue production area identifier
     uint16_t id;
