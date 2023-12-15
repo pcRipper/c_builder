@@ -1,4 +1,4 @@
-#include ".\Math.h"
+#include "./Math.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -185,7 +185,7 @@ static void VectorType##_showVector(VectorType* vector,VectorType##_Output outpu
         return; \
     } \
  \
-    printf("%d: {",vector->size); \
+    printf("%lu: {",vector->size); \
     for(size_t i = 0;i < vector->size;++i) { \
         output(vector->data[i], i); \
         printf(", "); \
@@ -197,7 +197,7 @@ static VectorType* VectorType##_inputVector(VectorType##_FillFunc functor) { \
     size_t size = 0; \
     while(size == 0) { \
         printf("Input amount of elements: "); \
-        scanf("%u",&size); \
+        scanf("%lu",&size); \
     } \
     \
     VectorType* vector = VectorType##_init(size); \

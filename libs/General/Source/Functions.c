@@ -1,4 +1,4 @@
-#include "..\Headers\Functions.h"
+#include "../Headers/Functions.h"
 
 void cleanSTDIN(){
     int c;

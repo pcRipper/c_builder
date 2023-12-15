@@ -1,4 +1,4 @@
-#include "..\Headers\VectorFunctions.h"
+#include "../Headers/VectorFunctions.h"
 
 //Fill functions
 int randomFill(size_t index){

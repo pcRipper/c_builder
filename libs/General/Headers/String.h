@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include ".\Math.h"
+#include "./Math.h"
 
 #ifndef STRING_H
 #define STRING_H

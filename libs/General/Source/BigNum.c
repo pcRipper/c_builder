@@ -1,4 +1,4 @@
-#include "..\Headers\BigNum.h"
+#include "../Headers/BigNum.h"
 
 BigNum* bignum_init(uint64_t x){
     BigNum* bignum = (BigNum*)malloc(sizeof(BigNum));
